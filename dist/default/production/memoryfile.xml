@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project>
-  <executable name="dist/default/production/dsPicCAN_KneeControlCSDV_Inhibit_On_tuning_NewLoadCell_2.24.production.elf">
+  <executable name="dist/default/production/dsPicCAN_KneeControlCSDV_Inhibit_On_tuning_NewLoadCell_2.24_2.production.elf">
     <memory name="data">
       <units>bytes</units>
       <length>16384</length>
@@ -11,8 +11,8 @@
     <memory name="program">
       <units>bytes</units>
       <length>131328</length>
-      <used>20070</used>
-      <free>111258</free>
+      <used>20130</used>
+      <free>111198</free>
     </memory>
   </executable>
 </project>

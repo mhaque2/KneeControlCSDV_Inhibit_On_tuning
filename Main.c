@@ -89,7 +89,7 @@ INT16 main(void)
     SRbits.IPL = 0; // Set interrupt priority, see section 7.3
  
     
-    double u1,y1,LoadCell1,LoadCell2;
+    double u1,y1,LoadCell1,LoadCell2,Diff_LoadCell,Sum_LoadCell;
     struct imu_data imuBase;
     float current = 0;
     double measured_torque=0;
@@ -207,8 +207,10 @@ INT16 main(void)
         LoadCell1 = ReadAnalogSample(2);  // when there is not force, the reading is 0.6
         LoadCell2 = ReadAnalogSample(4);  // when there is not force, the reading is 0.6
         
-        
-        my_st_impedance = KneeControl(angle,angular_velocity,AcX1,LoadCell2);
+        Sum_LoadCell=LoadCell1+LoadCell2;
+        Diff_LoadCell=fabsf(LoadCell1-LoadCell2);
+ 
+        my_st_impedance = KneeControl(angle,angular_velocity,AcX1,Sum_LoadCell,Diff_LoadCell);
         st = my_st_impedance.st;
         desired_torque = -my_st_impedance.impedance;
         percent = my_st_impedance.percent_new;
@@ -216,7 +218,7 @@ INT16 main(void)
         duty_cycle=100*percent;
         
 
-        CANSendAll(angle,desired_torque,LoadCell2,st);
+        CANSendAll(angle,Sum_LoadCell,Diff_LoadCell,st);
         //CANSendAll(float flt_data_1, float flt_data_2, float flt_data_3, int int_data_2);
         /*range of data: CANSendAll(flt_data_1= -3276.7 to 3276.7, flt_data_2 = -3276.7 to 3276.7, int_data_1 = 0 to 65535,int_data_2 = 0 to 65535)*/
 

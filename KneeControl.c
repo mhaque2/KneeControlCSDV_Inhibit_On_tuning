@@ -71,7 +71,7 @@ double heel_sensor_toe_off = 180; //earlier it was 0.65
 //double swing_flexion_angle = 38;
 float tau_friction = 1.0;
 
-struct st_impedance KneeControl(float knee_angle, float knee_velocity,int16_t ac_x,float heel_sensor)
+struct st_impedance KneeControl(float knee_angle, float knee_velocity,int16_t ac_x,float LoadCell_Sum, float LoadCell_Diff)
 {
     //bool cond_HS = ((knee_angle >= 2)&&(knee_velocity >= 1))? true:false; //Heel Strike condition is met.
     //bool  cond_HS = (ac_x > 15000) ? true : false;  //Heel Strike condition is met.
@@ -81,7 +81,7 @@ switch (state)
     // state 0
     case ST_EARLY_STANCE:
         //LATBbits.LATB15 = 1;
-         if (heel_sensor < ES_SWF_switching_heeloff) //(for oldcell testing)
+         if (LoadCell_Sum < ES_SWF_switching_heeloff) //(for oldcell testing)
         {
             state = ST_SW_FLEXION;
             break;
@@ -135,7 +135,7 @@ switch (state)
         break;
     //state 1
     case ST_PRE_SWING:
-        if (heel_sensor < 132) //(for oldcell testing)
+        if (LoadCell_Sum < 132) //(for oldcell testing)
         {
             state = ST_SW_FLEXION;
             break;
@@ -268,7 +268,7 @@ switch (state)
       case IDLE:
           
        // Stop(); //stop the motor
-        if (heel_sensor >= ES_SWF_switching_heelstrike) 
+        if (LoadCell_Sum >= ES_SWF_switching_heelstrike) 
 
         {
             state = ST_EARLY_STANCE;
