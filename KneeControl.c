@@ -5,6 +5,8 @@
 #include <math.h>
 #include "pwm.h"
 
+//testing
+
 /*Switching parameters*/
 #define ES_SWF_switching_heeloff 510      //State 0 to State 2 (Early Stance to Swing Flexion)
 // State 1, pre-swing, not currently in use.
